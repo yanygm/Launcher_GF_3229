@@ -2927,6 +2927,8 @@
 	<slotBg id='4' />
 	<slotBg id='5' />
 	<slotBg id='6' />
+	<!--item itemCatId='22' itemName='车牌编辑卡'-->
+	<InitialCard id='1' />
 	<!--item itemCatId='23' itemName='卡片'-->
 	<Card id='1' />
 	<Card id='3' />
