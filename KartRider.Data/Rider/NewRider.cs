@@ -30,6 +30,7 @@ namespace RiderData
 			NewRider.SlotItem();
 			NewRider.slotBg();
 			NewRider.MyRoom();
+			NewRider.InitialCard();
 			NewRider.Card();
 			NewRider.ReplayTicket();
 			NewRider.Uniform();
@@ -577,6 +578,27 @@ namespace RiderData
 					item.Add(add);
 				}
 				LoRpGetRiderItemPacket(71, item);
+			}
+		}
+
+		public static void InitialCard()
+		{
+			XmlDocument doc = new XmlDocument();
+			doc.Load(@"Profile\Item.xml");
+			if (!(doc.GetElementsByTagName("InitialCard") == null))
+			{
+				XmlNodeList lis = doc.GetElementsByTagName("InitialCard");
+				List<List<short>> item = new List<List<short>>();
+				foreach (XmlNode xn in lis)
+				{
+					XmlElement xe = (XmlElement)xn;
+					short i = short.Parse(xe.GetAttribute("id"));
+					short sn = 0;
+					short num = SetRider.SlotChanger;
+					List<short> add = new List<short> { i, sn, num };
+					item.Add(add);
+				}
+				LoRpGetRiderItemPacket(22, item);
 			}
 		}
 
