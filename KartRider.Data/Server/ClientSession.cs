@@ -174,7 +174,7 @@ namespace KartRider
 						SetRiderItem.Set_Balloon = iPacket.ReadShort();
 						iPacket.ReadShort();
 						SetRiderItem.Set_HeadBand = iPacket.ReadShort();
-						iPacket.ReadShort();
+						SetRiderItem.Set_HeadPhone = iPacket.ReadShort();
 						SetRiderItem.Set_HandGearL = iPacket.ReadShort();
 						iPacket.ReadShort();
 						SetRiderItem.Set_Uniform = iPacket.ReadShort();
@@ -196,10 +196,11 @@ namespace KartRider
 						SetRiderItem.Set_Tachometer = iPacket.ReadShort();
 						SetRiderItem.Set_Dye = iPacket.ReadShort();
 						SetRiderItem.Set_KartSN = iPacket.ReadShort();
-						short Set_KartEffect = iPacket.ReadShort();
-						short Set_KartBoosterEffect = iPacket.ReadShort();
 						iPacket.ReadByte();
-						SetRiderItem.Set_slotBg = iPacket.ReadByte();
+						short Set_KartCoating = iPacket.ReadShort();
+						short Set_KartTailLamp = iPacket.ReadShort();
+						SetRiderItem.Set_slotBg = iPacket.ReadShort();
+						//short Set_KartBoosterEffect = iPacket.ReadShort();
 						SetRiderItem.Save_SetRiderItem();
 						TuneSpec.Use_PartsSpec(SetRiderItem.Set_Kart, SetRiderItem.Set_KartSN);
 						TuneSpec.Use_TuneSpec(SetRiderItem.Set_Kart, SetRiderItem.Set_KartSN);

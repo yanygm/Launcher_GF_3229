@@ -2933,6 +2933,8 @@
 	<Card id='1' />
 	<Card id='3' />
 	<Card id='89' />
+	<!--item itemCatId='12' itemName='回放摄像机'-->
+	<HeadPhone id='1' />
 	<!--item itemCatId='13' itemName='回放观赏券'-->
 	<ReplayTicket id='1' />
 	<!--item itemCatId='61' itemName='计程车仪表'-->

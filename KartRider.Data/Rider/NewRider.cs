@@ -32,6 +32,7 @@ namespace RiderData
 			NewRider.MyRoom();
 			NewRider.InitialCard();
 			NewRider.Card();
+			NewRider.HeadPhone();
 			NewRider.ReplayTicket();
 			NewRider.Uniform();
 			NewRider.Decal();
@@ -86,7 +87,7 @@ namespace RiderData
 				oPacket.WriteShort(SetRiderItem.Set_Balloon);
 				oPacket.WriteShort(0);
 				oPacket.WriteShort(SetRiderItem.Set_HeadBand);
-				oPacket.WriteShort(0);
+				oPacket.WriteShort(SetRiderItem.Set_HeadPhone);
 				oPacket.WriteShort(SetRiderItem.Set_HandGearL);
 				oPacket.WriteShort(0);
 				oPacket.WriteShort(SetRiderItem.Set_Uniform);
@@ -623,6 +624,27 @@ namespace RiderData
 			}
 		}
 
+		public static void HeadPhone()
+		{
+			XmlDocument doc = new XmlDocument();
+			doc.Load(@"Profile\Item.xml");
+			if (!(doc.GetElementsByTagName("HeadPhone") == null))
+			{
+				XmlNodeList lis = doc.GetElementsByTagName("HeadPhone");
+				List<List<short>> item = new List<List<short>>();
+				foreach (XmlNode xn in lis)
+				{
+					XmlElement xe = (XmlElement)xn;
+					short i = short.Parse(xe.GetAttribute("id"));
+					short sn = 0;
+					short num = 1;
+					List<short> add = new List<short> { i, sn, num };
+					item.Add(add);
+				}
+				LoRpGetRiderItemPacket(12, item);
+			}
+		}
+
 		public static void ReplayTicket()
 		{
 			XmlDocument doc = new XmlDocument();
@@ -636,9 +658,7 @@ namespace RiderData
 					XmlElement xe = (XmlElement)xn;
 					short i = short.Parse(xe.GetAttribute("id"));
 					short sn = 0;
-					short num = 1;
-					if (i == 1)
-						num = SetRider.SlotChanger;
+					short num = SetRider.SlotChanger;
 					List<short> add = new List<short> { i, sn, num };
 					item.Add(add);
 				}
