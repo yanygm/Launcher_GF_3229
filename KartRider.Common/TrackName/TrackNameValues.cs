@@ -330,6 +330,8 @@ namespace KartRider_TrackName
 		maple_I01 = 581698328,
 		maple_I02 = 581829401,
 		maple_I03 = 581960474,
+		fengshen_I01 = 1036780631,
+		fengshen_R01 = 1040319584,
 
 		village_R01_rvs = 1557923248,
 		village_R03_rvs = 1559233970,

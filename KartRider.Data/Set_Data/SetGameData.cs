@@ -71,5 +71,13 @@ namespace Set_Data
 				streamWriter.Write(SetRider.SlotChanger);
 			}
 		}
+
+		public static void Save_Card()
+		{
+			using (StreamWriter streamWriter = new StreamWriter(FileName.SetRider_LoadFile + FileName.SetRider_Card + FileName.Extension, false))
+			{
+				streamWriter.Write(SetRider.Card);
+			}
+		}
 	}
 }

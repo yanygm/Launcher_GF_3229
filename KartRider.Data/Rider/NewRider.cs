@@ -145,7 +145,7 @@ namespace RiderData
 					}
 				}
 				oPacket.WriteShort(SetRiderItem.Set_slotBg);
-				oPacket.WriteString("Y|S");
+				oPacket.WriteString(SetRider.Card);
 				oPacket.WriteUInt(SetRider.Lucci);
 				oPacket.WriteUInt(SetRider.RP);
 				oPacket.WriteBytes(new byte[100]);

@@ -2518,6 +2518,17 @@ namespace KartRider
 						}
 						return;
 					}
+					else if (hash == Adler32Helper.GenerateAdler32_ASCII("SpRqUseInitialCardPacket", 0))
+					{
+						SetRider.Card = iPacket.ReadString();
+						SetGameData.Save_Card();
+						using (OutPacket outPacket = new OutPacket("SpRpUseInitialCardPacket"))
+						{
+							outPacket.WriteInt(0);
+							this.Parent.Client.Send(outPacket);
+						}
+						return;
+					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqQuestUX2ndForShutDownPacket", 0))
 					{
 						using (OutPacket outPacket = new OutPacket("PrQuestUX2ndForShutDownPacket"))
