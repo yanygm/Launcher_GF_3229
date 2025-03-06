@@ -51,8 +51,6 @@ namespace KartRider
 		public static void Start()
 		{
 			Console.WriteLine("Load server IP : {0}:{1}", (object)RouterListener.sIP, (object)RouterListener.port);
-			//Console.WriteLine(Adler32Helper.GenerateAdler32_UNICODE("china_R12", 0));
-			//Console.WriteLine(Adler32Helper.GenerateAdler32_ASCII("PrEnterShopPacket", 0));
 			RouterListener.ForceConnect = "";
 			RouterListener.Listener = new TcpListener(IPAddress.Parse(RouterListener.sIP), RouterListener.port);
 			RouterListener.Listener.Start();
