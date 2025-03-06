@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using ExcData;
 using KartRider.IO;
 using Set_Data;
 
@@ -217,6 +219,74 @@ namespace KartRider
 				}
 				RouterListener.MySession.Client.Send(outPacket);
 			}
+		}
+
+		public static void GetRider(OutPacket outPacket)
+		{
+			var KartAndSN = new { Kart = SetRiderItem.Set_Kart, SN = SetRiderItem.Set_KartSN };
+			outPacket.WriteShort(SetRiderItem.Set_Character);
+			outPacket.WriteShort(SetRiderItem.Set_Paint);
+			outPacket.WriteShort(SetRiderItem.Set_Kart);
+			outPacket.WriteShort(SetRiderItem.Set_Plate);
+			outPacket.WriteShort(SetRiderItem.Set_Goggle);
+			outPacket.WriteShort(SetRiderItem.Set_Balloon);
+			outPacket.WriteShort(0);
+			outPacket.WriteShort(SetRiderItem.Set_HeadBand);
+			outPacket.WriteShort(SetRiderItem.Set_HeadPhone);
+			outPacket.WriteShort(SetRiderItem.Set_HandGearL);
+			outPacket.WriteShort(0);
+			outPacket.WriteShort(SetRiderItem.Set_Uniform);
+			outPacket.WriteShort(SetRiderItem.Set_Decal);
+			outPacket.WriteShort(SetRiderItem.Set_Pet);
+			outPacket.WriteShort(SetRiderItem.Set_FlyingPet);
+			outPacket.WriteShort(SetRiderItem.Set_Aura);
+			outPacket.WriteShort(SetRiderItem.Set_SkidMark);
+			outPacket.WriteShort(0);
+			outPacket.WriteShort(SetRiderItem.Set_RidColor);
+			outPacket.WriteShort(SetRiderItem.Set_BonusCard);
+			outPacket.WriteShort(0);//bossModeCard
+			var existingPlant = KartExcData.PlantList.FirstOrDefault(list => list[0] == KartAndSN.Kart && list[1] == KartAndSN.SN);
+			if (existingPlant != null)
+			{
+				outPacket.WriteShort(existingPlant[3]);
+				outPacket.WriteShort(existingPlant[7]);
+				outPacket.WriteShort(existingPlant[5]);
+				outPacket.WriteShort(existingPlant[9]);
+			}
+			else
+			{
+				outPacket.WriteShort(0);
+				outPacket.WriteShort(0);
+				outPacket.WriteShort(0);
+				outPacket.WriteShort(0);
+			}
+			outPacket.WriteShort(0);
+			outPacket.WriteShort(0);
+			outPacket.WriteShort(SetRiderItem.Set_Tachometer);
+			outPacket.WriteShort(SetRiderItem.Set_Dye);
+			outPacket.WriteShort(SetRiderItem.Set_KartSN);
+			outPacket.WriteByte(0);
+			var existingParts = KartExcData.PartsList.FirstOrDefault(list => list[0] == KartAndSN.Kart && list[1] == KartAndSN.SN);
+			if (existingParts != null)
+			{
+				outPacket.WriteShort(existingParts[14]);
+				outPacket.WriteShort(existingParts[15]);
+			}
+			else
+			{
+				var existingLevel = KartExcData.LevelList.FirstOrDefault(list => list[0] == KartAndSN.Kart && list[1] == KartAndSN.SN);
+				if (existingLevel != null)
+				{
+					outPacket.WriteShort(7);
+					outPacket.WriteShort(0);
+				}
+				else
+				{
+					outPacket.WriteShort(0);
+					outPacket.WriteShort(0);
+				}
+			}
+			outPacket.WriteShort(SetRiderItem.Set_slotBg);
 		}
 	}
 }

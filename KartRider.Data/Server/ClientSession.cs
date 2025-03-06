@@ -200,7 +200,13 @@ namespace KartRider
 						short Set_KartCoating = iPacket.ReadShort();
 						short Set_KartTailLamp = iPacket.ReadShort();
 						SetRiderItem.Set_slotBg = iPacket.ReadShort();
-						//short Set_KartBoosterEffect = iPacket.ReadShort();
+						//iPacket.ReadShort();
+						Console.WriteLine($"Set_KartPlant1: {Set_KartPlant1}");
+						Console.WriteLine($"Set_KartPlant2: {Set_KartPlant2}");
+						Console.WriteLine($"Set_KartPlant3: {Set_KartPlant3}");
+						Console.WriteLine($"Set_KartPlant4: {Set_KartPlant4}");
+						Console.WriteLine($"Set_KartCoating: {Set_KartCoating}");
+						Console.WriteLine($"Set_KartTailLamp: {Set_KartTailLamp}");
 						SetRiderItem.Save_SetRiderItem();
 						TuneSpec.Use_PartsSpec(SetRiderItem.Set_Kart, SetRiderItem.Set_KartSN);
 						TuneSpec.Use_TuneSpec(SetRiderItem.Set_Kart, SetRiderItem.Set_KartSN);
@@ -224,9 +230,9 @@ namespace KartRider
 								outPacket.WriteString(SetRider.Nickname);
 								outPacket.WriteUShort((ushort)DataTime()[0]);
 								outPacket.WriteUShort((ushort)DataTime()[1]);
-								outPacket.WriteBytes(new byte[66]);
-								outPacket.WriteByte(0);
-								outPacket.WriteString("Y|S");
+								GameSupport.GetRider(outPacket);
+								outPacket.WriteShort(0);
+								outPacket.WriteString(SetRider.Card);
 								outPacket.WriteUInt(SetRider.RP);
 								outPacket.WriteInt(0);
 								outPacket.WriteByte(6);//Licenses
@@ -423,9 +429,14 @@ namespace KartRider
 							outPacket.WriteUInt(SetRider.UserNO);
 							outPacket.WriteBytes(new byte[12]);
 							outPacket.WriteString(SetRider.Nickname);
-							outPacket.WriteBytes(new byte[67]);
+							GameSupport.GetRider(outPacket);
 							outPacket.WriteUInt(SetRider.RP);
-							outPacket.WriteBytes(new byte[910]);
+							outPacket.WriteBytes(new byte[34]);
+							for (int i = 0; i < 7; i++)
+							{
+								outPacket.WriteBytes(new byte[130]);
+								outPacket.WriteHexString("FF");
+							}
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
@@ -495,7 +506,7 @@ namespace KartRider
 							for (int i = 1; i <= 56; i++)
 							{
 								outPacket.WriteInt(i | 0x1000000);
-								outPacket.WriteInt((int)(Math.Pow(2, 20) - 1));
+								outPacket.WriteInt((int)(Math.Pow(2, 30) - 1));
 								outPacket.WriteInt(0);
 								outPacket.WriteByte(0);
 							}
@@ -594,7 +605,7 @@ namespace KartRider
 							outPacket.WriteShort(0);
 							outPacket.WriteShort(0);
 							outPacket.WriteShort(0);
-							outPacket.WriteInt(10000);
+							outPacket.WriteUInt(SetRider.Koin);
 							this.Parent.Client.Send(outPacket);
 						}
 						KartExcData.AddLevelList(Kart, SN, 5, 35, 0, 0, 0, 0, 0);
@@ -621,8 +632,8 @@ namespace KartRider
 							outPacket.WriteShort(Kart);
 							outPacket.WriteShort(1);
 							outPacket.WriteShort(0);
-							outPacket.WriteByte(1);
-							outPacket.WriteByte(2);
+							outPacket.WriteByte(1);//Grade
+							outPacket.WriteByte(0);//X-1 V1-2
 							outPacket.WriteShort(0);
 							outPacket.WriteShort(0);
 							outPacket.WriteBytes(data);
@@ -678,8 +689,8 @@ namespace KartRider
 							outPacket.WriteShort(0);
 							outPacket.WriteShort(0);
 							outPacket.WriteInt(0);
-							outPacket.WriteShort(Kart2);
-							outPacket.WriteShort(SN2);
+							outPacket.WriteShort(0);//Kart2
+							outPacket.WriteShort(0);//SN2
 							outPacket.WriteUInt(SetRider.Koin);
 							outPacket.WriteUInt(SetRider.Lucci);
 							outPacket.WriteInt(0);
@@ -713,13 +724,11 @@ namespace KartRider
 							this.Parent.Client.Send(outPacket);
 						}
 						TuneSpec.Use_KartLevelSpec(Kart, SN);
-						var kartLevelList = KartExcData.LevelList;
-						var kartAndSN = new { Kart, SN };
-						var existingLevelList = kartLevelList.FirstOrDefault(list => list[0] == kartAndSN.Kart && list[1] == kartAndSN.SN);
+						var existingLevelList = KartExcData.LevelList.FirstOrDefault(list => list[0] == Kart && list[1] == SN);
 						if (existingLevelList == null)
 						{
 							pointleft = (short)(35 - v1 - v2 - v3 - v4);
-							KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, 5, pointleft, v1, v2, v3, v4, 0);
+							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1, v2, v3, v4, 0);
 						}
 						else
 						{
@@ -729,7 +738,7 @@ namespace KartRider
 							short v3New = (short)(existingLevelList[6] + v3);
 							short v4New = (short)(existingLevelList[7] + v4);
 							short effect = existingLevelList[8];
-							KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, 5, pointleft, v1New, v2New, v3New, v4New, effect);
+							KartExcData.AddLevelList(Kart, SN, 5, pointleft, v1New, v2New, v3New, v4New, effect);
 						}
 						return;
 					}
@@ -743,15 +752,13 @@ namespace KartRider
 						short SN = iPacket.ReadShort();
 						short Effect = iPacket.ReadShort();
 
-						var kartLevelList = KartExcData.LevelList;
-						var kartAndSN = new { Kart, SN };
-						var existingLevelList = kartLevelList.FirstOrDefault(list => list[0] == kartAndSN.Kart && list[1] == kartAndSN.SN);
+						var existingLevelList = KartExcData.LevelList.FirstOrDefault(list => list[0] == Kart && list[1] == SN);
 
 						using (OutPacket outPacket = new OutPacket("PrKartLevelSpecialSlotUpdate"))
 						{
 							outPacket.WriteInt(1);
-							outPacket.WriteShort(kartAndSN.Kart);
-							outPacket.WriteShort(kartAndSN.SN);
+							outPacket.WriteShort(Kart);
+							outPacket.WriteShort(SN);
 							if (existingLevelList != null)
 							{
 								outPacket.WriteShort(existingLevelList[2]);
@@ -761,7 +768,7 @@ namespace KartRider
 								outPacket.WriteShort(existingLevelList[6]);
 								outPacket.WriteShort(existingLevelList[7]);
 								outPacket.WriteShort(Effect);
-								KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, existingLevelList[2], existingLevelList[3], existingLevelList[4], existingLevelList[5], existingLevelList[6], existingLevelList[7], Effect);
+								KartExcData.AddLevelList(Kart, SN, existingLevelList[2], existingLevelList[3], existingLevelList[4], existingLevelList[5], existingLevelList[6], existingLevelList[7], Effect);
 							}
 							else
 							{
@@ -772,7 +779,7 @@ namespace KartRider
 								outPacket.WriteShort(10);
 								outPacket.WriteShort(5);
 								outPacket.WriteShort(Effect);
-								KartExcData.AddLevelList(kartAndSN.Kart, kartAndSN.SN, 5, 0, 10, 10, 10, 5, Effect);
+								KartExcData.AddLevelList(Kart, SN, 5, 0, 10, 10, 10, 5, Effect);
 							}
 							this.Parent.Client.Send(outPacket);
 						}
@@ -1976,6 +1983,12 @@ namespace KartRider
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqGetDictionaryRewardInfoPacket", 0))
 					{
+						using (OutPacket outPacket = new OutPacket("PrGetDictionaryRewardInfoPacket"))
+						{
+							outPacket.WriteShort(56);
+							outPacket.WriteInt(1);
+							this.Parent.Client.Send(outPacket);
+						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqNewCareerListPacket", 0))
@@ -2365,7 +2378,7 @@ namespace KartRider
 							outPacket.WriteByte(0);
 							outPacket.WriteInt(0);
 							outPacket.WriteByte(0);
-							outPacket.WriteInt(1415577599);
+							outPacket.WriteHexString("FF FF 5F 54");
 							outPacket.WriteUInt(SetRider.pmap);
 							for (int i = 0; i < 11; i++)
 							{
@@ -2489,15 +2502,25 @@ namespace KartRider
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqBoomhillExchangeInfo", 0))
 					{
+						short Type = iPacket.ReadShort();
+						iPacket.ReadInt();
 						using (OutPacket outPacket = new OutPacket("PrBoomhillExchangeInfo"))
 						{
-							outPacket.WriteBytes(new byte[8]);
+							outPacket.WriteInt();
+							outPacket.WriteShort(Type);
+							outPacket.WriteInt();
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqBoomhillExchangeNeedNotice", 0))
 					{
+						using (OutPacket outPacket = new OutPacket("PrBoomhillExchangeNeedNotice"))
+						{
+							outPacket.WriteInt(0);
+							outPacket.WriteByte(0);
+							this.Parent.Client.Send(outPacket);
+						}
 						return;
 					}
 					else if (hash == Adler32Helper.GenerateAdler32_ASCII("PqMixItemExchangeCount", 0))

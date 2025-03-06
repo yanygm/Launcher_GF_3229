@@ -150,45 +150,42 @@ namespace ExcData
 			var existingTune = tuneList.FirstOrDefault(list => list[0] == kartAndSN.Kart && list[1] == kartAndSN.SN);
 			if (existingTune != null)
 			{
+				TuneSpec.Reset_Tune_SpecData();
 				if (existingTune[2] == 103 || existingTune[3] == 103 || existingTune[4] == 103)
 				{
 					TuneSpec.Tune_DragFactor = -0.0022f;
 				}
-				else if (existingTune[2] == 203 || existingTune[3] == 203 || existingTune[4] == 203)
+				if (existingTune[2] == 203 || existingTune[3] == 203 || existingTune[4] == 203)
 				{
 					TuneSpec.Tune_ForwardAccel = 3.5f;
 				}
-				else if (existingTune[2] == 303 || existingTune[3] == 303 || existingTune[4] == 303)
+				if (existingTune[2] == 303 || existingTune[3] == 303 || existingTune[4] == 303)
 				{
 					TuneSpec.Tune_CornerDrawFactor = 0.0020f;
 				}
-				else if (existingTune[2] == 403 || existingTune[3] == 403 || existingTune[4] == 403)
+				if (existingTune[2] == 403 || existingTune[3] == 403 || existingTune[4] == 403)
 				{
 					TuneSpec.Tune_TeamBoosterTime = 250f;
 				}
-				else if (existingTune[2] == 503 || existingTune[3] == 503 || existingTune[4] == 503)
+				if (existingTune[2] == 503 || existingTune[3] == 503 || existingTune[4] == 503)
 				{
 					TuneSpec.Tune_NormalBoosterTime = 190f;
 				}
-				else if (existingTune[2] == 603 || existingTune[3] == 603 || existingTune[4] == 603)
+				if (existingTune[2] == 603 || existingTune[3] == 603 || existingTune[4] == 603)
 				{
 					TuneSpec.Tune_StartBoosterTimeSpeed = 800f;
 				}
-				else if (existingTune[2] == 703 || existingTune[3] == 703 || existingTune[4] == 703)
+				if (existingTune[2] == 703 || existingTune[3] == 703 || existingTune[4] == 703)
 				{
 					TuneSpec.Tune_TransAccelFactor = 0.018f;
 				}
-				else if (existingTune[2] == 803 || existingTune[3] == 803 || existingTune[4] == 803)
+				if (existingTune[2] == 803 || existingTune[3] == 803 || existingTune[4] == 803)
 				{
 					TuneSpec.Tune_DriftMaxGauge = -200f;
 				}
-				else if (existingTune[2] == 903 || existingTune[3] == 903 || existingTune[4] == 903)
+				if (existingTune[2] == 903 || existingTune[3] == 903 || existingTune[4] == 903)
 				{
 					TuneSpec.Tune_DriftEscapeForce = 210f;
-				}
-				else
-				{
-					TuneSpec.Reset_Tune_SpecData();
 				}
 			}
 			else
