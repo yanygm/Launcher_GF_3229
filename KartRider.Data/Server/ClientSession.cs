@@ -231,7 +231,6 @@ namespace KartRider
 								outPacket.WriteUShort((ushort)DataTime()[0]);
 								outPacket.WriteUShort((ushort)DataTime()[1]);
 								GameSupport.GetRider(outPacket);
-								outPacket.WriteShort(0);
 								outPacket.WriteString(SetRider.Card);
 								outPacket.WriteUInt(SetRider.RP);
 								outPacket.WriteInt(0);
@@ -431,12 +430,7 @@ namespace KartRider
 							outPacket.WriteString(SetRider.Nickname);
 							GameSupport.GetRider(outPacket);
 							outPacket.WriteUInt(SetRider.RP);
-							outPacket.WriteBytes(new byte[34]);
-							for (int i = 0; i < 7; i++)
-							{
-								outPacket.WriteBytes(new byte[130]);
-								outPacket.WriteHexString("FF");
-							}
+							outPacket.WriteBytes(new byte[910]);
 							this.Parent.Client.Send(outPacket);
 						}
 						return;
