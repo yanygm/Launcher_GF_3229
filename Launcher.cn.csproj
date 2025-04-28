@@ -116,7 +116,7 @@
     <Compile Include="KartRider.Data\Rider\RiderSchool.cs" />
     <Compile Include="KartRider.Data\Rider\FavoriteItem.cs" />
     <Compile Include="KartRider.Data\Rider\NewRider.cs" />
-    <Compile Include="KartRider.Data\ExcData\ExcSpec.cs" />
+    <Compile Include="KartRider.Data\ExcData\KartExcSpec.cs" />
     <Compile Include="KartRider.Data\Set_Data\SetGameOption.cs" />
     <Compile Include="KartRider.Data\Set_Data\SetGameData.cs" />
     <Compile Include="KartRider.Data\Set_Data\SetMyRoom.cs" />
