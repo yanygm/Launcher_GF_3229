@@ -56,7 +56,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Properties\1.ico</ApplicationIcon>
+    <ApplicationIcon>Properties\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>Launcher</RootNamespace>
@@ -171,7 +171,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\1.ico" />
+    <Content Include="Properties\favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
