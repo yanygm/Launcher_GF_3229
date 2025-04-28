@@ -2445,7 +2445,7 @@ namespace KartRider
 							outPacket.WriteString("visible");
 							outPacket.WriteString("true");
 							outPacket.WriteString("value");
-							outPacket.WriteString("china_R11");
+							outPacket.WriteString("village_R01");
 							outPacket.WriteString("maxReplayFileCount");
 							outPacket.WriteString("250");
 							outPacket.WriteInt(0);
