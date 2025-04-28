@@ -37,7 +37,8 @@ namespace KartRider
 			GetKart_Button = new Button();
 			label_DeveloperName = new Label();
 			MinorVersion = new Label();
-			comboBox1 = new ComboBox();
+			Speed_comboBox = new ComboBox();
+			Speed_label = new Label();
 			SuspendLayout();
 			// 
 			// Start_Button
@@ -83,20 +84,31 @@ namespace KartRider
 			MinorVersion.Size = new System.Drawing.Size(0, 12);
 			MinorVersion.TabIndex = 367;
 			// 
-			// comboBox1
+			// Speed_comboBox
 			// 
-			comboBox1.FormattingEnabled = true;
-			comboBox1.Location = new System.Drawing.Point(19, 78);
-			comboBox1.Name = "comboBox1";
-			comboBox1.Size = new System.Drawing.Size(114, 20);
-			comboBox1.TabIndex = 368;
-			comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-			comboBox1.Items.Add("Integration");
-			comboBox1.Items.Add("S0");
-			comboBox1.Items.Add("S1");
-			comboBox1.Items.Add("S2");
-			comboBox1.Items.Add("S3");
-			comboBox1.Text = "Integration";
+			Speed_comboBox.ForeColor = System.Drawing.Color.Red;
+			Speed_comboBox.FormattingEnabled = true;
+			Speed_comboBox.Sorted = false;
+			foreach (string key in SpeedType.speedNames.Keys)
+			{
+				Speed_comboBox.Items.Add(key);
+			}
+			Speed_comboBox.Location = new System.Drawing.Point(54, 78);
+			Speed_comboBox.Name = "Speed_comboBox";
+			Speed_comboBox.Size = new System.Drawing.Size(78, 20);
+			Speed_comboBox.TabIndex = 368;
+			Speed_comboBox.Text = "标准";
+			Speed_comboBox.SelectedIndexChanged += Speed_comboBox_SelectedIndexChanged;
+			// 
+			// Speed_label
+			// 
+			Speed_label.AutoSize = true;
+			Speed_label.ForeColor = System.Drawing.Color.Blue;
+			Speed_label.Location = new System.Drawing.Point(19, 82);
+			Speed_label.Name = "Speed_label";
+			Speed_label.Size = new System.Drawing.Size(59, 12);
+			Speed_label.TabIndex = 369;
+			Speed_label.Text = "速度:";
 			// 
 			// Launcher
 			// 
@@ -104,7 +116,8 @@ namespace KartRider
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = System.Drawing.SystemColors.Control;
 			ClientSize = new System.Drawing.Size(257, 180);
-			Controls.Add(comboBox1);
+			Controls.Add(Speed_comboBox);
+			Controls.Add(Speed_label);
 			Controls.Add(MinorVersion);
 			Controls.Add(label_DeveloperName);
 			Controls.Add(GetKart_Button);
@@ -232,6 +245,23 @@ namespace KartRider
 						Console.WriteLine(ex.Message);
 					}
 				})).Start();
+			}
+		}
+
+		private void Speed_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (Speed_comboBox.SelectedItem != null)
+			{
+				string selectedSpeed = Speed_comboBox.SelectedItem.ToString();
+				if (SpeedType.speedNames.ContainsKey(selectedSpeed))
+				{
+					config.SpeedType = SpeedType.speedNames[selectedSpeed];
+					Console.WriteLine(selectedSpeed);
+				}
+				else
+				{
+					Console.WriteLine("Invalid speed type selected.");
+				}
 			}
 		}
 
