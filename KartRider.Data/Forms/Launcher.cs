@@ -436,33 +436,5 @@ namespace KartRider
 				}
 			}
 		}
-
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (comboBox1.SelectedItem != null)
-			{
-				Console.WriteLine(comboBox1.SelectedItem.ToString());
-				if (comboBox1.SelectedItem.ToString() == "Integration")
-				{
-					config.SpeedType = 7;
-				}
-				else if (comboBox1.SelectedItem.ToString() == "S0")
-				{
-					config.SpeedType = 3;
-				}
-				else if (comboBox1.SelectedItem.ToString() == "S1")
-				{
-					config.SpeedType = 0;
-				}
-				else if (comboBox1.SelectedItem.ToString() == "S2")
-				{
-					config.SpeedType = 1;
-				}
-				else if (comboBox1.SelectedItem.ToString() == "S3")
-				{
-					config.SpeedType = 2;
-				}
-			}
-		}
 	}
 }
