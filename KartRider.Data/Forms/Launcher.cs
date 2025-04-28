@@ -23,7 +23,8 @@ namespace KartRider
 		private Button Start_Button;
 		private Button GetKart_Button;
 		private Label label_DeveloperName;
-		private ComboBox comboBox1;
+		private Label Speed_label;
+		private ComboBox Speed_comboBox;
 		private Label MinorVersion;
 
 		public Launcher()
