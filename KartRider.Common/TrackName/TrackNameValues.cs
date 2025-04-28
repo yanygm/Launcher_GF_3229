@@ -143,6 +143,7 @@ namespace KartRider_TrackName
 		pirate_R03 = 737936281,
 		pirate_R04 = 738067354,
 		pirate_R05 = 738198427,
+		pirate_R06_kd = 1180173514,
 		pirate_I01 = 734135182,
 		pirate_I02 = 734266255,
 		pirate_I03 = 734397328,
