@@ -204,7 +204,7 @@ namespace ExcData
 		public static void Use_PlantSpec(short Set_Kart, short Set_KartSN)
 		{
 			var existingPlant = KartExcData.PlantList.FirstOrDefault(list => list[0] == Set_Kart && list[1] == Set_KartSN);
-			if (existingPlant!= null)
+			if (existingPlant != null)
 			{
 				if (existingPlant[2] == 43)
 				{
@@ -1321,7 +1321,7 @@ namespace ExcData
 		public static void Use_PartsSpec(short id, short sn)
 		{
 			var existingParts = KartExcData.PartsList.FirstOrDefault(list => list[0] == id && list[1] == sn);
-			if (existingParts!= null)
+			if (existingParts != null)
 			{
 				for (short i = 63; i < 67; i++)
 				{
