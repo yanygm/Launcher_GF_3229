@@ -393,7 +393,7 @@ namespace ExcData
 						ExcSpec.Plant43_StartBoosterTimeSpeed = 0f;
 					}
 				}
-				else if (existingPlant[4] == 44)
+				if (existingPlant[4] == 44)
 				{
 					if (existingPlant[5] == 1)
 					{
@@ -540,7 +540,7 @@ namespace ExcData
 						ExcSpec.Plant44_SteerConstraint = 0f;
 					}
 				}
-				else if (existingPlant[6] == 45)
+				if (existingPlant[6] == 45)
 				{
 					if (existingPlant[7] == 0)
 					{
@@ -793,7 +793,7 @@ namespace ExcData
 						ExcSpec.Plant45_DragFactor = 0f;
 					}
 				}
-				else if (existingPlant[8] == 46)
+				if (existingPlant[8] == 46)
 				{
 					if (existingPlant[9] == 1)
 					{
@@ -1078,7 +1078,7 @@ namespace ExcData
 		public static void Use_KartLevelSpec(short Set_Kart, short Set_KartSN)
 		{
 			var existingLevel = KartExcData.LevelList.FirstOrDefault(list => list[0] == Set_Kart && list[1] == Set_KartSN);
-			if (existingLevel!= null)
+			if (existingLevel != null)
 			{
 				if (existingLevel[4] == 0)
 				{
